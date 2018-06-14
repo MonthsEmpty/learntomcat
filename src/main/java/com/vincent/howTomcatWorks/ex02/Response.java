@@ -40,6 +40,9 @@ public class Response implements ServletResponse {
            [ message-body ]
          Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
       */
+            output.write("HTTP/1.0 200 OK\r\n".getBytes());
+            output.write("Content-Type:text/html;charset=GBK\r\n".getBytes());
+            output.write("\r\n".getBytes());
             int ch = fis.read(bytes, 0, BUFFER_SIZE);
             while (ch != -1) {
                 output.write(bytes, 0, ch);

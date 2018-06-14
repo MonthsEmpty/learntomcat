@@ -1,4 +1,4 @@
-package com.vincent.howTomcatWorks.ex03.connect.http;
+package com.vincent.howTomcatWorks.catalina.connector.http;
 
 
 import com.vincent.howTomcatWorks.catalina.util.StringManager;
@@ -87,7 +87,7 @@ public class SocketInputStream extends InputStream {
      * Construct a servlet input stream associated with the specified socket
      * input.
      *
-     * @param is         socket input stream
+     * @param is socket input stream
      * @param bufferSize size of the internal buffer
      */
     public SocketInputStream(InputStream is, int bufferSize) {
@@ -105,7 +105,7 @@ public class SocketInputStream extends InputStream {
      * The string manager for this package.
      */
     protected static StringManager sm =
-            StringManager.getManager(Constants.Package);
+        StringManager.getManager(Constants.Package);
 
 
     // ----------------------------------------------------- Instance Variables
@@ -121,11 +121,11 @@ public class SocketInputStream extends InputStream {
      *
      * @param requestLine Request line object
      * @throws IOException If an exception occurs during the underlying socket
-     *                     read operations, or if the given buffer is not big enough to accomodate
-     *                     the whole line.
+     * read operations, or if the given buffer is not big enough to accomodate
+     * the whole line.
      */
     public void readRequestLine(HttpRequestLine requestLine)
-            throws IOException {
+        throws IOException {
 
         // Recycling check
         if (requestLine.methodEnd != 0)
@@ -142,7 +142,7 @@ public class SocketInputStream extends InputStream {
         } while ((chr == CR) || (chr == LF));
         if (chr == -1)
             throw new EOFException
-                    (sm.getString("requestStream.readline.error"));
+                (sm.getString("requestStream.readline.error"));
         pos--;
 
         // Reading the method name
@@ -159,12 +159,12 @@ public class SocketInputStream extends InputStream {
                 if ((2 * maxRead) <= HttpRequestLine.MAX_METHOD_SIZE) {
                     char[] newBuffer = new char[2 * maxRead];
                     System.arraycopy(requestLine.method, 0, newBuffer, 0,
-                            maxRead);
+                                     maxRead);
                     requestLine.method = newBuffer;
                     maxRead = requestLine.method.length;
                 } else {
                     throw new IOException
-                            (sm.getString("requestStream.readline.toolong"));
+                        (sm.getString("requestStream.readline.toolong"));
                 }
             }
             // We're at the end of the internal buffer
@@ -172,7 +172,7 @@ public class SocketInputStream extends InputStream {
                 int val = read();
                 if (val == -1) {
                     throw new IOException
-                            (sm.getString("requestStream.readline.error"));
+                        (sm.getString("requestStream.readline.error"));
                 }
                 pos = 0;
                 readStart = 0;
@@ -203,12 +203,12 @@ public class SocketInputStream extends InputStream {
                 if ((2 * maxRead) <= HttpRequestLine.MAX_URI_SIZE) {
                     char[] newBuffer = new char[2 * maxRead];
                     System.arraycopy(requestLine.uri, 0, newBuffer, 0,
-                            maxRead);
+                                     maxRead);
                     requestLine.uri = newBuffer;
                     maxRead = requestLine.uri.length;
                 } else {
                     throw new IOException
-                            (sm.getString("requestStream.readline.toolong"));
+                        (sm.getString("requestStream.readline.toolong"));
                 }
             }
             // We're at the end of the internal buffer
@@ -216,7 +216,7 @@ public class SocketInputStream extends InputStream {
                 int val = read();
                 if (val == -1)
                     throw new IOException
-                            (sm.getString("requestStream.readline.error"));
+                        (sm.getString("requestStream.readline.error"));
                 pos = 0;
                 readStart = 0;
             }
@@ -246,12 +246,12 @@ public class SocketInputStream extends InputStream {
                 if ((2 * maxRead) <= HttpRequestLine.MAX_PROTOCOL_SIZE) {
                     char[] newBuffer = new char[2 * maxRead];
                     System.arraycopy(requestLine.protocol, 0, newBuffer, 0,
-                            maxRead);
+                                     maxRead);
                     requestLine.protocol = newBuffer;
                     maxRead = requestLine.protocol.length;
                 } else {
                     throw new IOException
-                            (sm.getString("requestStream.readline.toolong"));
+                        (sm.getString("requestStream.readline.toolong"));
                 }
             }
             // We're at the end of the internal buffer
@@ -261,7 +261,7 @@ public class SocketInputStream extends InputStream {
                 int val = read();
                 if (val == -1)
                     throw new IOException
-                            (sm.getString("requestStream.readline.error"));
+                        (sm.getString("requestStream.readline.error"));
                 pos = 0;
                 readStart = 0;
             }
@@ -288,11 +288,11 @@ public class SocketInputStream extends InputStream {
      *
      * @param requestLine Request line object
      * @throws IOException If an exception occurs during the underlying socket
-     *                     read operations, or if the given buffer is not big enough to accomodate
-     *                     the whole line.
+     * read operations, or if the given buffer is not big enough to accomodate
+     * the whole line.
      */
     public void readHeader(HttpHeader header)
-            throws IOException {
+        throws IOException {
 
         // Recycling check
         if (header.nameEnd != 0)
@@ -328,7 +328,7 @@ public class SocketInputStream extends InputStream {
                     maxRead = header.name.length;
                 } else {
                     throw new IOException
-                            (sm.getString("requestStream.readline.toolong"));
+                        (sm.getString("requestStream.readline.toolong"));
                 }
             }
             // We're at the end of the internal buffer
@@ -336,7 +336,7 @@ public class SocketInputStream extends InputStream {
                 int val = read();
                 if (val == -1) {
                     throw new IOException
-                            (sm.getString("requestStream.readline.error"));
+                        (sm.getString("requestStream.readline.error"));
                 }
                 pos = 0;
                 readStart = 0;
@@ -381,7 +381,7 @@ public class SocketInputStream extends InputStream {
                     int val = read();
                     if (val == -1)
                         throw new IOException
-                                (sm.getString("requestStream.readline.error"));
+                            (sm.getString("requestStream.readline.error"));
                     pos = 0;
                     readStart = 0;
                 }
@@ -398,12 +398,12 @@ public class SocketInputStream extends InputStream {
                     if ((2 * maxRead) <= HttpHeader.MAX_VALUE_SIZE) {
                         char[] newBuffer = new char[2 * maxRead];
                         System.arraycopy(header.value, 0, newBuffer, 0,
-                                maxRead);
+                                         maxRead);
                         header.value = newBuffer;
                         maxRead = header.value.length;
                     } else {
                         throw new IOException
-                                (sm.getString("requestStream.readline.toolong"));
+                            (sm.getString("requestStream.readline.toolong"));
                     }
                 }
                 // We're at the end of the internal buffer
@@ -413,7 +413,7 @@ public class SocketInputStream extends InputStream {
                     int val = read();
                     if (val == -1)
                         throw new IOException
-                                (sm.getString("requestStream.readline.error"));
+                            (sm.getString("requestStream.readline.error"));
                     pos = 0;
                     readStart = 0;
                 }
@@ -441,12 +441,12 @@ public class SocketInputStream extends InputStream {
                     if ((2 * maxRead) <= HttpHeader.MAX_VALUE_SIZE) {
                         char[] newBuffer = new char[2 * maxRead];
                         System.arraycopy(header.value, 0, newBuffer, 0,
-                                maxRead);
+                                         maxRead);
                         header.value = newBuffer;
                         maxRead = header.value.length;
                     } else {
                         throw new IOException
-                                (sm.getString("requestStream.readline.toolong"));
+                            (sm.getString("requestStream.readline.toolong"));
                     }
                 }
                 header.value[readCount] = ' ';
@@ -464,13 +464,12 @@ public class SocketInputStream extends InputStream {
      * Read byte.
      */
     public int read()
-            throws IOException {
+        throws IOException {
         if (pos >= count) {
             fill();
             if (pos >= count)
                 return -1;
         }
-        System.out.println(new String(buf));
         return buf[pos++] & 0xff;
     }
 
@@ -502,7 +501,7 @@ public class SocketInputStream extends InputStream {
      * stream without blocking.
      */
     public int available()
-            throws IOException {
+        throws IOException {
         return (count - pos) + is.available();
     }
 
@@ -511,7 +510,7 @@ public class SocketInputStream extends InputStream {
      * Close the input stream.
      */
     public void close()
-            throws IOException {
+        throws IOException {
         if (is == null)
             return;
         is.close();
@@ -527,7 +526,7 @@ public class SocketInputStream extends InputStream {
      * Fill the internal buffer using data from the undelying input stream.
      */
     protected void fill()
-            throws IOException {
+        throws IOException {
         pos = 0;
         count = 0;
         int nRead = is.read(buf, 0, buf.length);
@@ -536,13 +535,5 @@ public class SocketInputStream extends InputStream {
         }
     }
 
-    public static void main(String[] args) {
-        byte a = -1;
-        int b = a;
-        System.out.println(Integer.toHexString(b));
-        System.out.println(Integer.toHexString(a));
-        char c = 97;
-        System.out.println(c);
-    }
 
 }
